@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - CK'S ONLINE STORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #3f73f6;
+            --navy-mid: #1e2a45;
+            --gold: #c9a84c;
+            --cream: #f8f6f2;
+            --white: #ffffff;
+            --gray: #ff7411;
+            --border: #e5e7eb;
+            --red: #dc2626;
+            --green: #16a34a;
+            --shadow: 0 2px 16px rgba(0,0,0,0.07);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Jost',sans-serif; background:var(--cream); color:#1f2937; min-height:100vh; }
+
+        /* ── LOGIN ── */
+        .login-screen {
+            position:fixed; inset:0; background:url(img/hero-1.JPG);
+            display:flex; align-items:center; justify-content:center;
+            z-index:9999; flex-direction:column; gap:1.5rem;
+        }
+        .login-screen.hidden { display:none; }
+        .login-box {
+            background:white; border-radius:24px; padding:2.5rem;
+            width:100%; max-width:400px; text-align:center;
+            box-shadow:0 20px 60px rgba(0,0,0,0.4);
+        }
+        .login-box h1 {
+            font-family:'Playfair Display',serif; font-size:1.6rem;
+            color:var(--navy); margin-bottom:0.3rem;
+        }
+        .login-box p { color:var(--gray); font-size:0.85rem; margin-bottom:1.8rem; }
+        .login-box input {
+            width:100%; padding:0.85rem 1rem;
+            border:2px solid var(--border); border-radius:12px;
+            font-family:'Jost',sans-serif; font-size:0.95rem; outline:none;
+            transition:border-color 0.2s; margin-bottom:1rem;
+        }
+        .login-box input:focus { border-color:var(--navy); }
+        .login-box button {
+            width:100%; padding:0.9rem; background:var(--navy); color:white;
+            border:none; border-radius:12px; font-family:'Jost',sans-serif;
+            font-size:0.95rem; font-weight:700; cursor:pointer;
+            transition:background 0.2s; letter-spacing:0.05em; text-transform:uppercase;
+        }
+        .login-box button:hover { background:#1e2a45; }
+        .login-err { color:var(--red); font-size:0.8rem; margin-top:-0.5rem; display:none; }
+        .login-err.show { display:block; }
+
+        /* ── TOP BAR ── */
+        .topbar {
+            background:var(--navy); padding:0 2rem; height:64px;
+            display:flex; align-items:center; justify-content:space-between;
+            position:sticky; top:0; z-index:100;
+            box-shadow:0 2px 20px rgba(0,0,0,0.3);
+        }
+        .topbar-left { display:flex; align-items:center; gap:1rem; }
+        .topbar h2 {
+            font-family:'Playfair Display',serif; color:white; font-size:1.2rem;
+        }
+        .topbar span { color:var(--gold); font-size:0.75rem; font-weight:600;
+            text-transform:uppercase; letter-spacing:0.1em; }
+        .logout-btn {
+            padding:0.5rem 1.2rem; background:rgba(255,255,255,0.1);
+            color:rgba(255,255,255,0.8); border:1px solid rgba(255,255,255,0.2);
+            border-radius:50px; font-family:'Jost',sans-serif; font-size:0.8rem;
+            cursor:pointer; transition:all 0.2s;
+        }
+        .logout-btn:hover { background:rgba(255,255,255,0.2); color:white; }
+
+        /* ── LAYOUT ── */
+        .admin-wrap { max-width:1200px; margin:0 auto; padding:2rem; }
+        .tabs { display:flex; gap:0.5rem; margin-bottom:2rem; flex-wrap:wrap; }
+        .tab-btn {
+            padding:0.6rem 1.4rem; border:2px solid var(--border);
+            border-radius:50px; background:white;
+            font-family:Georgia, 'Times New Roman', Times, serif; font-size:0.82rem; font-weight:600;
+            cursor:pointer; transition:all 0.2s; color:#1f2937;
+            letter-spacing:0.04em; text-transform:uppercase;
+        }
+        .tab-btn:hover { border-color:var(--navy); }
+        .tab-btn.active { background:var(--navy); border-color:var(--navy); color:white; }
+        .tab-panel { display:none; }
+        .tab-panel.active { display:block; }
+
+        /* ── CARDS ── */
+        .card {
+            background:white; border-radius:20px; padding:2rem;
+            box-shadow:var(--shadow); margin-bottom:1.5rem;
+        }
+        .card-title {
+            font-family:'Playfair Display',serif; font-size:1.3rem;
+            color:var(--navy); margin-bottom:1.5rem;
+            padding-bottom:1rem; border-bottom:2px solid var(--cream);
+        }
+
+        /* ── FORM ── */
+        .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+        .form-full { grid-column:1/-1; }
+        .form-group { display:flex; flex-direction:column; gap:0.4rem; }
+        .form-group label {
+            font-size:0.75rem; font-weight:700; text-transform:uppercase;
+            letter-spacing:0.08em; color:var(--navy);
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding:0.75rem 1rem; border:2px solid var(--border);
+            border-radius:10px; font-family:'Jost',sans-serif; font-size:0.9rem;
+            color:#1f2937; outline:none; transition:border-color 0.2s;
+            background:white;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus { border-color:var(--navy); }
+        .form-group textarea { min-height:90px; resize:vertical; }
+
+        /* image upload area */
+        .img-upload-area {
+            border:2px dashed var(--border); border-radius:12px;
+            padding:2rem; text-align:center; cursor:pointer;
+            transition:all 0.2s; position:relative; overflow:hidden;
+        }
+        .img-upload-area:hover { border-color:var(--navy); background:#f9f8f6; }
+        .img-upload-area input[type=file] {
+            position:absolute; inset:0; opacity:0; cursor:pointer;
+            border:none; padding:0;
+        }
+        .img-upload-area .u-icon { font-size:2rem; margin-bottom:0.5rem; }
+        .img-upload-area p { color:var(--gray); font-size:0.85rem; }
+        .img-upload-area small { color:var(--gray); font-size:0.75rem; }
+        .img-preview { max-height:160px; max-width:100%; border-radius:8px; margin-top:0.75rem; display:none; }
+
+        /* URL input alt */
+        .or-divider {
+            text-align:center; color:var(--gray); font-size:0.75rem;
+            margin:0.75rem 0; position:relative;
+        }
+        .or-divider::before, .or-divider::after {
+            content:''; position:absolute; top:50%; width:42%;
+            height:1px; background:var(--border);
+        }
+        .or-divider::before { left:0; }
+        .or-divider::after { right:0; }
+
+
+        /* submit btn */
+        .submit-btn {
+            padding:0.85rem 2rem; background:var(--navy); color:white;
+            border:none; border-radius:12px; font-family:'Jost',sans-serif;
+            font-size:0.9rem; font-weight:700; cursor:pointer;
+            transition:all 0.2s; letter-spacing:0.05em; text-transform:uppercase;
+        }
+        .submit-btn:hover { background:#1e2a45; transform:translateY(-1px); }
+        .submit-btn.gold { background:var(--gold); color:var(--navy); }
+        .submit-btn.gold:hover { background:#b8962a; }
+
+        /* toast */
+        .toast {
+            position:fixed; bottom:2rem; right:2rem;
+            background:var(--navy); color:white;
+            padding:0.85rem 1.5rem; border-radius:12px;
+            font-size:0.9rem; font-weight:500;
+            box-shadow:0 8px 30px rgba(0,0,0,0.2);
+            transform:translateY(100px); opacity:0;
+            transition:all 0.3s; z-index:9000; max-width:320px;
+        }
+        .toast.show { transform:translateY(0); opacity:1; }
+        .toast.success { border-left:4px solid var(--green); }
+        .toast.error   { border-left:4px solid var(--red); }
+
+        /* ── PRODUCTS TABLE ── */
+        .prod-list { display:flex; flex-direction:column; gap:1rem; }
+        .prod-item {
+            display:flex; align-items:center; gap:1rem;
+            padding:1rem; background:#fafafa; border-radius:14px;
+            border:1px solid var(--border); transition:box-shadow 0.2s;
+        }
+        .prod-item:hover { box-shadow:var(--shadow); }
+        .prod-thumb {
+            width:60px; height:60px; border-radius:10px; object-fit:cover;
+            background:linear-gradient(135deg,#f0ece4,#e8dfd0);
+            flex-shrink:0; display:flex; align-items:center;
+            justify-content:center; font-size:1.8rem; overflow:hidden;
+        }
+        .prod-thumb img { width:100%; height:100%; object-fit:cover; }
+        .prod-info { flex:1; min-width:0; }
+        .prod-info h4 { font-weight:600; font-size:0.95rem; color:var(--navy); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+        .prod-info p { font-size:0.78rem; color:var(--gray); margin-top:0.2rem; }
+        .prod-price { font-weight:700; font-size:0.95rem; color:var(--navy); white-space:nowrap; }
+        .prod-actions { display:flex; gap:0.5rem; }
+        .act-btn {
+            padding:0.4rem 0.9rem; border:none; border-radius:8px;
+            font-family:'Jost',sans-serif; font-size:0.78rem; font-weight:600;
+            cursor:pointer; transition:all 0.2s; letter-spacing:0.04em;
+        }
+        .act-btn.edit  { background:#eff6ff; color:#1d4ed8; }
+        .act-btn.edit:hover { background:#dbeafe; }
+        .act-btn.del   { background:#fef2f2; color:var(--red); }
+        .act-btn.del:hover { background:#fee2e2; }
+
+        /* ── STORES TABLE ── */
+        .stores-list { display:flex; flex-direction:column; gap:1rem; }
+        .store-row {
+            display:grid; grid-template-columns:1fr 1fr auto;
+            gap:0.75rem; align-items:end;
+            padding:1.2rem; background:#fafafa;
+            border-radius:14px; border:1px solid var(--border);
+        }
+        .store-row .store-name-label {
+            font-weight:700; font-size:0.9rem; color:var(--navy);
+            margin-bottom:0.4rem; display:block;
+        }
+        .store-row input {
+            padding:0.65rem 0.9rem; border:2px solid var(--border);
+            border-radius:10px; font-family:'Jost',sans-serif; font-size:0.85rem;
+            outline:none; transition:border-color 0.2s; width:100%;
+        }
+        .store-row input:focus { border-color:var(--navy); }
+
+        /* ── STATS ── */
+        .stats-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1rem; margin-bottom:1.5rem; }
+        .stat-card { background:white; border-radius:16px; padding:1.5rem; box-shadow:var(--shadow); text-align:center; }
+        .stat-card .stat-num { font-family:'Playfair Display',serif; font-size:2rem; color:var(--navy); font-weight:700; }
+        .stat-card .stat-lbl { font-size:0.75rem; text-transform:uppercase; letter-spacing:0.1em; color:var(--gray); margin-top:0.3rem; }
+
+        /* ── BADGE ── */
+        .badge {
+            display:inline-block; padding:0.2rem 0.6rem;
+            border-radius:50px; font-size:0.68rem; font-weight:700;
+            letter-spacing:0.06em; text-transform:uppercase;
+        }
+        .badge-mens     { background:#eff6ff; color:#1d4ed8; }
+        .badge-womens   { background:#fdf2f8; color:#9d174d; }
+        .badge-kids     { background:#f0fdf4; color:#166534; }
+        .badge-footwear { background:#fff7ed; color:#9a3412; }
+        .badge-access   { background:#faf5ff; color:#6b21a8; }
+
+        /* empty list */
+        .empty-list { text-align:center; padding:3rem 1rem; color:var(--gray); font-size:0.9rem; }
+        .empty-list .icon { font-size:3rem; margin-bottom:0.75rem; }
+
+        @media(max-width:640px) {
+            .form-grid { grid-template-columns:1fr; }
+            .store-row { grid-template-columns:1fr; }
+            .prod-item { flex-wrap:wrap; }
+            .admin-wrap { padding:1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+    <div class="login-box">
+        <h1>Admin Access</h1>
+        <p>Enter your password to manage CK'S ONLINE STORE</p>
+        <input type="password" id="pwInput" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+        <p class="login-err" id="loginErr">Incorrect password. Please try again.</p>
+        <button onclick="doLogin()">Login</button>
+    </div>
+</div>
+
+<!-- TOP BAR -->
+<div class="topbar">
+    <div class="topbar-left">
+        <h2>CK'S Admin</h2>
+        <span>Panel</span>
+    </div>
+    <div style="display:flex;gap:.75rem;align-items:center">
+        <a href="products.html" style="color:rgba(255,255,255,.6);font-size:.8rem;text-decoration:none">← View Store</a>
+        <button class="logout-btn" onclick="doLogout()">Logout</button>
+    </div>
+</div>
+
+<!-- ADMIN CONTENT -->
+<div class="admin-wrap">
+
+    <!-- Stats -->
+    <div class="stats-row" id="statsRow"></div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('add')"> Add Product</button>
+        <button class="tab-btn" onclick="switchTab('products')"> Manage Products</button>
+        <button class="tab-btn" onclick="switchTab('stores')"> Store Numbers</button>
+        <button class="tab-btn" onclick="switchTab('password')"> Change Password</button>
+    </div>
+
+    <!-- ADD PRODUCT TAB -->
+    <div class="tab-panel active" id="tab-add">
+        <div class="card">
+            <div class="card-title">Add New Product</div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Product Name *</label>
+                    <input type="text" id="pName" placeholder="e.g. Classic Oxford Shirt">
+                </div>
+                <div class="form-group">
+                    <label>Category *</label>
+                    <select id="pCat">
+                        <option value="">-- Select Category --</option>
+                        <option value="mens-clothing">Men's Clothing</option>
+                        <option value="womens-clothing">Women's Clothing</option>
+                        <option value="kids-clothing">Kids' Clothing</option>
+                        <option value="footwear">Footwear</option>
+                        <option value="accessories">Accessories</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Price (K) *</label>
+                    <input type="number" id="pPrice" placeholder="e.g. 450" min="0">
+                </div>
+                <div class="form-group">
+                    <label>Badge (optional)</label>
+                    <input type="text" id="pBadge" placeholder="e.g. New, Sale, Hot">
+                </div>
+                <div class="form-group form-full">
+                    <label>Available Sizes * <small style="font-weight:400;text-transform:none;letter-spacing:0">(comma-separated, e.g. S, M, L, XL or 38, 39, 40)</small></label>
+                    <input type="text" id="pSizes" placeholder="S, M, L, XL, XXL">
+                </div>
+                <div class="form-group form-full">
+                    <label>Description</label>
+                    <textarea id="pDesc" placeholder="Describe the product — material, fit, style..."></textarea>
+                </div>
+                <div class="form-group form-full">
+                    <label>Product Photo</label>
+                    <div class="img-upload-area" id="uploadArea">
+                        <input type="file" id="pImgFile" accept="image/*" onchange="handleFileUpload(event)">
+                        <div class="u-icon"></div>
+                        <p>Click or drag to upload a photo</p>
+                        <small>JPG, PNG, WEBP — max ~2MB recommended</small>
+                        <img class="img-preview" id="imgPreview">
+                    </div>
+                    <div class="or-divider">or paste image URL</div>
+                    <input type="text" id="pImgUrl" placeholder="https://example.com/photo.jpg" oninput="previewUrl()">
+                </div>
+
+                <div class="or-divider">WhatsApp Image Link</div>
+                <label style="font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--navy);">
+                    WhatsApp Image Link <small style="font-weight:400;text-transform:none">(separate link sent in WhatsApp message)</small>   
+                </label>
+                <input type="text" id="pWaImgUrl" placeholder="https://example.com/photo.jpg — this link appears in the WhatsApp order message">
+            </div>
+            <div style="margin-top:1.5rem;display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
+                <button class="submit-btn" onclick="addProduct()">Add Product</button>
+                <button class="submit-btn" style="background:#f3f4f6;color:#374151" onclick="clearForm()">Clear Form</button>
+                <span id="addStatus" style="font-size:.85rem;color:var(--green);display:none">✓ Product added!</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MANAGE PRODUCTS TAB -->
+    <div class="tab-panel" id="tab-products">
+        <div class="card">
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:2px solid var(--cream)">
+                <div class="card-title" style="margin:0;padding:0;border:none">All Products</div>
+                <div style="display:flex;gap:.75rem;flex-wrap:wrap;align-items:center">
+                    <select id="filterCat" onchange="renderProductList()" style="padding:.5rem .9rem;border:2px solid var(--border);border-radius:50px;font-family:'Jost',sans-serif;font-size:.82rem;outline:none;color:#374151">
+                        <option value="">All Categories</option>
+                        <option value="mens-clothing">Men's Clothing</option>
+                        <option value="womens-clothing">Women's Clothing</option>
+                        <option value="kids-clothing">Kids' Clothing</option>
+                        <option value="footwear">Footwear</option>
+                        <option value="accessories">Accessories</option>
+                    </select>
+                    <button class="act-btn del" onclick="clearAllProducts()" style="padding:.5rem 1rem">Clear All</button>
+                </div>
+            </div>
+            <div class="prod-list" id="productList"></div>
+        </div>
+    </div>
+
+    <!-- STORE NUMBERS TAB -->
+    <div class="tab-panel" id="tab-stores">
+        <div class="card">
+            <div class="card-title">Store WhatsApp Numbers</div>
+            <p style="color:var(--gray);font-size:.85rem;margin-bottom:1.5rem">
+                Set the WhatsApp number for each store. Numbers should be in international format without the + sign (e.g. 260979111227 for a Zambian number).
+            </p>
+            <div class="stores-list" id="storesList"></div>
+            <div style="margin-top:1.5rem">
+                <button class="submit-btn gold" onclick="saveStores()">Save Store Numbers</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CHANGE PASSWORD TAB -->
+    <div class="tab-panel" id="tab-password">
+        <div class="card">
+            <div class="card-title">Change Admin Password</div>
+            <div class="form-grid" style="max-width:400px">
+                <div class="form-group form-full">
+                    <label>Current Password</label>
+                    <input type="password" id="currPw" placeholder="Enter current password">
+                </div>
+                <div class="form-group form-full">
+                    <label>New Password</label>
+                    <input type="password" id="newPw" placeholder="Enter new password">
+                </div>
+                <div class="form-group form-full">
+                    <label>Confirm New Password</label>
+                    <input type="password" id="confPw" placeholder="Repeat new password">
+                </div>
+            </div>
+            <div style="margin-top:1.5rem">
+                <button class="submit-btn" onclick="changePw()">Change Password</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── AUTH ───────────────────────────────────────────────────────────────────────────────
+const ADMIN_HASH = 'ede087aa0325d8efb50ac9481ab521bceb7faaa3c9876ef1a9e68c0c175b96ac';
+let failedAttempts = 0;
+let lockoutUntil = 0;
+ 
+async function hashPassword(pw) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(pw);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+ 
+async function doLogin() {
+    const now = Date.now();
+    if (now < lockoutUntil) {
+        const mins = Math.ceil((lockoutUntil - now) / 60000);
+        document.getElementById('loginErr').textContent = `Too many attempts. Try again in ${mins} minute(s).`;
+        document.getElementById('loginErr').classList.add('show');
+        return;
+    }
+    const val = document.getElementById('pwInput').value;
+    const storedHash = localStorage.getItem('ck_admin_hash') || ADMIN_HASH;
+    const inputHash = await hashPassword(val);
+    if (inputHash === storedHash) {
+        failedAttempts = 0;
+        document.getElementById('loginScreen').classList.add('hidden');
+        sessionStorage.setItem('ck_authed', '1');
+        initAdmin();
+    } else {
+        failedAttempts++;
+        document.getElementById('pwInput').value = '';
+        if (failedAttempts >= 3) {
+            lockoutUntil = Date.now() + 5 * 60 * 1000;
+            failedAttempts = 0;
+            document.getElementById('loginErr').textContent = 'Too many wrong attempts. Locked for 5 minutes.';
+        } else {
+            document.getElementById('loginErr').textContent = `Incorrect password. ${3 - failedAttempts} attempt(s) remaining.`;
+        }
+        document.getElementById('loginErr').classList.add('show');
+    }
+}
+ 
+function doLogout() {
+    sessionStorage.removeItem('ck_authed');
+    location.reload();
+}
+ 
+// Check if already authed in this session
+if (sessionStorage.getItem('ck_authed') === '1') {
+    document.getElementById('loginScreen').classList.add('hidden');
+    document.addEventListener('DOMContentLoaded', initAdmin);
+}
+ 
+// ─── DATA ────────────────────────────────────────────────────────────────────
+const DEFAULT_STORES = [
+    { id:1, name:'Zmart Mall – Ndola',   address:'Zmart Mall, Ndola',      phone:'260979111227' },
+    { id:2, name:'Luanshya Store',       address:'Town Centre, Luanshya',  phone:'260979111227' },
+    { id:3, name:'Mufulira Store',       address:'Main Rd, Mufulira',      phone:'260979111227' },
+    { id:4, name:'Kitwe Main Store',     address:'Kitwe CBD, Kitwe',       phone:'260979111227' },
+    { id:5, name:'Kitwe Branch',         address:'Nkana East, Kitwe',      phone:'260979111227' },
+    { id:6, name:'chapasuka store - Ndola',     address:'chapasuka building, Ndola',       phone:'260976699138' }
+];
+
+const CAT_LABELS = {
+    'mens-clothing':"Men's Clothing",'womens-clothing':"Women's Clothing",
+    'kids-clothing':"Kids' Clothing",'footwear':'Footwear','accessories':'Accessories'
+};
+const CAT_EMOJI = {
+    'mens-clothing':'👔','womens-clothing':'👗','kids-clothing':'🧒',
+    'footwear':'👟','accessories':'👜'
+};
+const CAT_BADGE = {
+    'mens-clothing':'badge-mens','womens-clothing':'badge-womens','kids-clothing':'badge-kids',
+    'footwear':'badge-footwear','accessories':'badge-access'
+};
+
+// ─── SUPABASE ────────────────────────────────────────────────────────────────
+const SUPABASE_URL = 'https://fwumbschxqjqzdgyqors.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3dW1ic2NoeHFqcXpkZ3lxb3JzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3ODU1NDQsImV4cCI6MjA4OTM2MTU0NH0.p7UsQjVH563JVqFQ3lGnjZNpLXJRnwCVOVHpvzXMh3M';
+ 
+async function sbFetch(path, options={}) {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/' + path, {
+        ...options,
+        headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': options.prefer !== undefined ? options.prefer : 'return=representation',
+            ...(options.headers||{})
+        }
+    });
+    if (!res.ok) { const e = await res.text(); throw new Error(e); }
+    const txt = await res.text();
+    return txt ? JSON.parse(txt) : [];
+}
+ 
+async function getProducts() {
+    try { return await sbFetch('products?order=created_at.desc'); } catch(e) { console.error(e); return []; }
+}
+async function deleteProductFromDB(id) {
+    try { await sbFetch('products?id=eq.' + id, { method:'DELETE', prefer:'' }); } catch(e) { console.error(e); }
+}
+async function clearAllProductsFromDB() {
+    try { await sbFetch('products?id=neq.null', { method:'DELETE', prefer:'' }); } catch(e) { console.error(e); }
+}
+async function saveStoresData(arr) {
+    try {
+        for (const s of arr) {
+            await sbFetch('stores?id=eq.' + s.id, {
+                method: 'PATCH', prefer: '',
+                body: JSON.stringify({ name: s.name, address: s.address, phone: s.phone })
+            });
+        }
+    } catch(e) { console.error(e); }
+}
+async function saveProductToDB(product) {
+    try { await sbFetch('products', { method:'POST', body: JSON.stringify(product) }); } catch(e) { console.error(e); throw e; }
+}
+async function deleteProduct(id) {
+    if (!confirm('Delete this product? This cannot be undone.')) return;
+    await deleteProductFromDB(id);
+    await renderProductList();
+    await renderStats();
+    showToast('\U0001f5d1\ufe0f Product deleted.', 'success');
+}
+async function clearAllProducts() {
+    if (!confirm('Delete ALL products? This cannot be undone.')) return;
+    await clearAllProductsFromDB();
+    await renderProductList();
+    await renderStats();
+    showToast('All products cleared.', 'success');
+}
+async function getStores() {
+    try {
+        const rows = await sbFetch('stores?order=id.asc');
+        return rows.length > 0 ? rows : DEFAULT_STORES;
+    } catch(e) { return DEFAULT_STORES; }
+}
+async function saveStores() {
+    const stores = await getStores();
+    stores.forEach(s => {
+        const nm    = document.getElementById('sname-'+s.id)?.value.trim();
+        const addr  = document.getElementById('saddr-'+s.id)?.value.trim();
+        const phone = document.getElementById('sphone-'+s.id)?.value.trim().replace(/\D/g,'');
+        if (nm)    s.name    = nm;
+        if (addr)  s.address = addr;
+        if (phone) s.phone   = phone;
+    });
+    await saveStoresData(stores);
+    showToast('\u2705 Store numbers saved!', 'success');
+}
+
+// ─── TABS ────────────────────────────────────────────────────────────────────
+function switchTab(name) {
+    document.querySelectorAll('.tab-btn').forEach((b,i) => {
+        b.classList.toggle('active', ['add','products','stores','password'][i] === name);
+    });
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.getElementById('tab-'+name).classList.add('active');
+    if (name==='products') renderProductList();
+    if (name==='stores')   renderStoresList();
+
+}
+
+// ─── STATS ───────────────────────────────────────────────────────────────────
+async function renderStats() {
+    const products = await getProducts();
+    const cats = [...new Set(products.map(p=>p.category))];
+    const total = products.length;
+    const totalVal = products.reduce((a,p)=>a+Number(p.price),0);
+    document.getElementById('statsRow').innerHTML = `
+        <div class="stat-card">
+            <div class="stat-num">${total}</div>
+            <div class="stat-lbl">Total Products</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-num">${cats.length}</div>
+            <div class="stat-lbl">Categories</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-num">5</div>
+            <div class="stat-lbl">Stores</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-num">K ${totalVal.toLocaleString()}</div>
+            <div class="stat-lbl">Total Inventory Value</div>
+        </div>
+    `;
+}
+
+// ─── ADD PRODUCT ─────────────────────────────────────────────────────────────
+let uploadedImageData = '';
+
+function handleFileUpload(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(ev) {
+        uploadedImageData = ev.target.result;
+        const preview = document.getElementById('imgPreview');
+        preview.src = uploadedImageData;
+        preview.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+}
+
+function previewUrl() {
+    const url = document.getElementById('pImgUrl').value.trim();
+    const preview = document.getElementById('imgPreview');
+    if (url) {
+        preview.src = url;
+        preview.style.display = 'block';
+        uploadedImageData = '';
+    } else {
+        preview.style.display = 'none';
+    }
+}
+
+function generateId() {
+    return 'p' + Date.now() + Math.random().toString(36).substr(2,5);
+}
+
+async function addProduct() {
+    const name     = document.getElementById('pName').value.trim();
+    const cat      = document.getElementById('pCat').value;
+    const price    = document.getElementById('pPrice').value;
+    const sizesRaw = document.getElementById('pSizes').value.trim();
+    const desc     = document.getElementById('pDesc').value.trim();
+    const badge    = document.getElementById('pBadge').value.trim();
+    const imgUrl   = document.getElementById('pImgUrl').value.trim();
+    const waImgUrl = document.getElementById('pWaImgUrl').value.trim();
+    const image    = uploadedImageData || imgUrl || '';
+ 
+    if (!name || !cat || !price || !sizesRaw) {
+        showToast('\u26a0\ufe0f Please fill in all required fields (name, category, price, sizes)', 'error');
+        return;
+    }
+ 
+    const sizes = sizesRaw.split(',').map(s => s.trim()).filter(Boolean);
+ 
+    const product = {
+        id: generateId(),
+        name: name,
+        category: cat,
+        price: parseFloat(price),
+        description: desc,
+        sizes: sizes,
+        image: image,
+        waimage: waImgUrl,
+        badge: badge,
+        created_at: new Date().toISOString()
+    };
+ 
+    try {
+        showToast('\u23f3 Saving...', 'success');
+        await saveProductToDB(product);
+        await renderStats();
+        clearForm();
+        showToast('\u2705 Product "' + name + '" added!', 'success');
+    } catch(e) {
+        showToast('\u274c Error saving. Check console.', 'error');
+    }
+}
+
+function clearForm() {
+    ['pName','pPrice','pSizes','pDesc','pBadge','pImgUrl','pWaImgUrl'].forEach(id=>{
+        document.getElementById(id).value='';
+    });
+    document.getElementById('pCat').value='';
+    document.getElementById('imgPreview').style.display='none';
+    document.getElementById('pImgFile').value='';
+    uploadedImageData = '';
+}
+
+// ─── PRODUCT LIST ─────────────────────────────────────────────────────────────
+async function renderProductList() {
+    const filterVal = document.getElementById('filterCat').value;
+    let products = await getProducts();
+    if (filterVal) products = products.filter(p=>p.category===filterVal);
+
+    const list = document.getElementById('productList');
+
+    if (products.length === 0) {
+        list.innerHTML = `<div class="empty-list"><div class="icon">📦</div><p>No products yet. Add some from the Add Product tab.</p></div>`;
+        return;
+    }
+
+    list.innerHTML = products.map(p => {
+        const emoji = CAT_EMOJI[p.category] || '🏷️';
+        const badgeClass = CAT_BADGE[p.category] || '';
+        const catLabel = CAT_LABELS[p.category] || p.category;
+        const thumbHtml = p.image
+            ? `<img src="${p.image}" style="width:100%;height:100%;object-fit:cover;border-radius:10px" onerror="this.style.display='none'">`
+            : emoji;
+        return `
+        <div class="prod-item" id="item-${p.id}">
+            <div class="prod-thumb">${thumbHtml}</div>
+            <div class="prod-info">
+                <h4>${p.name}</h4>
+                <p>
+                    <span class="badge ${badgeClass}">${catLabel}</span>
+                    &nbsp; Sizes: ${(p.sizes||[]).join(', ')}
+                    ${p.badge ? `&nbsp;·&nbsp; <strong>${p.badge}</strong>` : ''}
+                </p>
+            </div>
+            <div class="prod-price">K ${Number(p.price).toLocaleString()}</div>
+            <div class="prod-actions">
+                <button class="act-btn del" onclick="deleteProduct('${p.id}')">Delete</button>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+
+
+
+
+// ─── STORES ───────────────────────────────────────────────────────────────────
+async function renderStoresList() {
+    const stores = await getStores();
+    document.getElementById('storesList').innerHTML = stores.map(s => `
+        <div class="store-row">
+            <div>
+                <span class="store-name-label">🏪 ${s.name}</span>
+                <input type="text" id="sname-${s.id}" value="${s.name}" placeholder="Store name">
+            </div>
+            <div>
+                <span class="store-name-label">📍 Address</span>
+                <input type="text" id="saddr-${s.id}" value="${s.address}" placeholder="Store address">
+            </div>
+            <div>
+                <span class="store-name-label">📱 WhatsApp Number</span>
+                <input type="text" id="sphone-${s.id}" value="${s.phone}" placeholder="260XXXXXXXXX">
+            </div>
+        </div>
+    `).join('');
+}
+
+
+
+// ─── PASSWORD ────────────────────────────────────────────────────────────────
+async function changePw() {
+    const curr = document.getElementById('currPw').value;
+    const nw   = document.getElementById('newPw').value;
+    const conf = document.getElementById('confPw').value;
+    const storedHash = localStorage.getItem('ck_admin_hash') || ADMIN_HASH;
+    const currHash = await hashPassword(curr);
+    if (currHash !== storedHash) { showToast('\u274c Current password is incorrect.', 'error'); return; }
+    if (!nw || nw.length < 6)   { showToast('\u26a0\ufe0f New password must be at least 6 characters.', 'error'); return; }
+    if (nw !== conf)             { showToast('\u26a0\ufe0f Passwords do not match.', 'error'); return; }
+    const newHash = await hashPassword(nw);
+    localStorage.setItem('ck_admin_hash', newHash);
+    ['currPw','newPw','confPw'].forEach(id => document.getElementById(id).value = '');
+    showToast('\u2705 Password changed successfully!', 'success');
+}
+
+// ─── TOAST ───────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg, type='success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast show ' + type;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(()=>{ t.classList.remove('show'); }, 3500);
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+async function initAdmin() {
+    // Seed default stores if none exist in Supabase
+    try {
+        const existing = await sbFetch('stores?order=id.asc');
+        if (existing.length === 0) {
+            for (const s of DEFAULT_STORES) {
+                await sbFetch('stores', {
+                    method: 'POST',
+                    body: JSON.stringify(s)
+                });
+            }
+        }
+    } catch(e) { console.error('Store seed error:', e); }
+    await renderStats();
+}
+
+// Run if already authed
+if (sessionStorage.getItem('ck_authed') === '1') {
+    initAdmin();
+}
+</script>
+</body>
+</html>

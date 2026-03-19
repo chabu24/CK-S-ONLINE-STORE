@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products - CK'S ONLINE STORE</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --navy: #ff530f;
+            --navy-mid: #1e2a45;
+            --gold: #ffffff;
+            --gold-light: #df5002;
+            --cream: #eef6ff;
+            --white: #ffffff;
+            --gray: #6b7280;
+            --light-gray: #91999d;
+            --border: #0180ff;
+            --whatsapp: #25D366;
+            --text: #1f2937;
+            --shadow: 0 2px 16px rgba(0,0,0,0.07);
+            --shadow-hover: 0 12px 40px rgba(0,0,0,0.15);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+
+        body {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            background: var(--cream);
+            color: var(--text);
+        }
+
+        /* ── NAVBAR ── */
+        header {
+            background: var(--navy);
+            position: sticky; top:0; z-index:900;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.35);
+        }
+        .navbar {
+            display: flex; align-items:center; justify-content:space-between;
+            padding: 0 2.5rem; max-width:1400px; margin:0 auto; height:68px;
+        }
+        .nav-logo img { height:44px; object-fit:contain; }
+        .nav-logo-text {
+            font-family:'Playfair Display',serif; color:white;
+            font-size:1.2rem; letter-spacing:0.05em;
+        }
+        .nav-logo-text span { color:var(--gold); }
+        .nav-menu { display:flex; list-style:none; gap:2rem; }
+        .nav-menu a {
+            color:rgba(255,255,255,0.8); text-decoration:none;
+            font-size:0.85rem; font-weight:500; letter-spacing:0.07em;
+            text-transform:uppercase; transition:color 0.2s;
+        }
+        .nav-menu a:hover, .nav-menu a.active { color:var(--gold); }
+        .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+        .hamburger span { display:block; width:24px; height:2px; background:white; border-radius:2px; }
+
+        /* ── PAGE HERO ── */
+        .page-hero {
+            background: var(--navy);
+            padding: 3.5rem 2rem 2.5rem;
+            text-align:center; position:relative; overflow:hidden;
+        }
+        .page-hero::before {
+            content:''; position:absolute; inset:0;
+            background: radial-gradient(ellipse at 20% 60%, rgba(201,168,76,0.12) 0%, transparent 55%),
+                        radial-gradient(ellipse at 80% 40%, rgba(201,168,76,0.08) 0%, transparent 55%);
+        }
+        .page-hero h1 {
+            font-family:'Playfair Display',serif; font-size:2.6rem;
+            color:white; position:relative;
+        }
+        .page-hero h1 span { color:var(--gold); }
+        .page-hero p {
+            color:rgba(255,255,255,0.55); font-size:0.95rem;
+            margin-top:0.6rem; position:relative;
+        }
+        
+        /* About Page Styles */
+.hero-2 {
+    background: linear-gradient(135deg, #1d83f0 0%, #f76116 100%);
+    color: rgb(83, 180, 236);
+    padding: 40px 20px 30px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-2::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url("../img/hero-1.jpg") center/cover no-repeat;
+    opacity: 0.3;
+    z-index: 1;
+}
+
+.hero-2 h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+.hero-2 p {
+    font-size: 1.3rem;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    line-height: 1.6;
+} 
+
+        /* ── CONTROLS ── */
+        .main-wrap { max-width:1400px; margin:0 auto; padding:2rem 2rem 4rem; }
+
+        .controls { display:flex; gap:1rem; margin-bottom:1.5rem; flex-wrap:wrap; align-items:center; }
+        .search-wrap { flex:1; min-width:220px; position:relative; }
+        .search-wrap input {
+            width:100%; padding:0.75rem 1rem 0.75rem 2.8rem;
+            border:2px solid var(--border); border-radius:50px;
+            font-family:'Jost',sans-serif; font-size:0.9rem;
+            background:white; color:var(--text); outline:none;
+            transition:border-color 0.2s;
+        }
+        .search-wrap input:focus { border-color:var(--navy); }
+        .search-wrap::before {
+            content:''; position:absolute; left:1rem;
+            top:50%; transform:translateY(-50%); font-size:0.85rem;
+        }
+        .products-count {
+            font-size:0.85rem; color:var(--gray); white-space:nowrap;
+        }
+
+        /* ── CATEGORIES ── */
+        .categories { display:flex; gap:0.6rem; flex-wrap:wrap; margin-bottom:2rem; }
+        .cat-btn {
+            padding:0.55rem 1.3rem; border:2px solid var(--border);
+            border-radius:50px; background:white;
+            font-family:'Jost',sans-serif; font-size:0.82rem; font-weight:600;
+            cursor:pointer; transition:all 0.2s; color:var(--text);
+            letter-spacing:0.04em; text-transform:uppercase;
+        }
+        .cat-btn:hover { border-color:var(--navy); color:var(--navy); }
+        .cat-btn.active { background:var(--navy); border-color:var(--navy); color:white; }
+
+        /* ── PRODUCT GRID ── */
+        .products-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
+            gap:0.7rem;
+        }
+
+        .product-card {
+            background:white; border-radius:18px; overflow:hidden;
+            box-shadow:var(--shadow); cursor:pointer; position:relative;
+            transition:all 0.3s ease;
+        }
+        .product-card:hover { transform:translateY(-7px); box-shadow:var(--shadow-hover); }
+        .product-card:hover .card-overlay { opacity:1; }
+
+        .card-img-wrap { position:relative; aspect-ratio:4/3; background:#f0ece4; overflow:hidden; }
+        .card-img { width:100%; height:100%; object-fit:cover; display:block; }
+        .card-img-placeholder {
+            width:100%; height:100%;
+            display:flex; align-items:center; justify-content:center;
+            font-size:2.5rem;
+            background:linear-gradient(135deg,#f0ece4,#e5ddd0);
+        }
+        .card-overlay {
+            position:absolute; inset:0;
+            background:rgba(20,27,45,0.45);
+            display:flex; align-items:center; justify-content:center;
+            opacity:0; transition:opacity 0.3s;
+        }
+        .card-overlay span {
+            background:white; color:var(--navy);
+            padding:0.65rem 1.4rem; border-radius:50px;
+            font-weight:700; font-size:0.85rem; letter-spacing:0.06em;
+            text-transform:uppercase;
+        }
+        .card-badge {
+            position:absolute; top:0.85rem; left:0.85rem;
+            background:var(--gold); color:var(--navy);
+            font-size:0.65rem; font-weight:800;
+            padding:0.28rem 0.7rem; border-radius:50px;
+            text-transform:uppercase; letter-spacing:0.1em;
+        }
+        .card-body { padding:0.4rem 0.6rem 0.5rem; }
+        .card-cat {
+            font-size:0.68rem; text-transform:uppercase;
+            letter-spacing:0.12em; color:var(--gold); font-weight:700;
+            margin-bottom:0.35rem;
+        }
+        .card-name {
+            font-family:'Playfair Display',serif; font-size:1.05rem;
+            color:var(--navy); line-height:1.3; margin-bottom:0.55rem;
+        }
+        .card-footer { display:flex; align-items:center; justify-content:space-between; }
+        .card-price { font-size:1.05rem; font-weight:700; color:var(--navy); }
+        .card-sizes { display:flex; gap:0.3rem; flex-wrap:wrap; }
+        .size-pip {
+            font-size:0.65rem; padding:0.15rem 0.45rem;
+            border:1px solid var(--border); border-radius:4px; color:var(--gray);
+        }
+
+        /* ── EMPTY STATE ── */
+        .empty-state {
+            grid-column:1/-1; text-align:center; padding:5rem 1rem;
+        }
+        .empty-state .icon { font-size:4rem; margin-bottom:1rem; }
+        .empty-state h3 {
+            font-family:'Playfair Display',serif; font-size:1.4rem;
+            color:var(--navy); margin-bottom:0.5rem;
+        }
+        .empty-state p { color:var(--gray); font-size:0.9rem; }
+
+        /* ── MODAL OVERLAY ── */
+        .modal-overlay {
+            position:fixed; inset:0;
+            background:rgba(0,0,0,0.65); backdrop-filter:blur(5px);
+            z-index:1000; display:none; align-items:center;
+            justify-content:center; padding:1rem;
+        }
+        .modal-overlay.open { display:flex; }
+
+        .modal {
+            background:white; border-radius:24px;
+            width:100%; max-width:900px; max-height:92vh;
+            overflow-y:auto; display:grid;
+            grid-template-columns:1fr 1fr;
+            position:relative;
+            animation:modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+            scrollbar-width:thin;
+        }
+        @keyframes modalIn {
+            from { opacity:0; transform:scale(0.9) translateY(30px); }
+            to   { opacity:1; transform:scale(1) translateY(0); }
+        }
+
+        .modal-close {
+            position:absolute; top:1rem; right:1rem;
+            width:34px; height:34px; background:var(--navy); color:white;
+            border:none; border-radius:50%; font-size:1.1rem; cursor:pointer;
+            z-index:10; display:flex; align-items:center; justify-content:center;
+            transition:background 0.2s;
+        }
+        .modal-close:hover { background:#c0392b; }
+
+        /* left column: image */
+        .modal-left {
+            background:linear-gradient(135deg,#f0ece4,#e8dfd0);
+            border-radius:24px 0 0 24px; overflow:hidden;
+            position:relative; min-height:400px;
+        }
+        .modal-img { width:100%; height:100%; object-fit:cover; display:block; }
+        .modal-img-placeholder {
+            width:100%; height:100%; min-height:400px;
+            display:flex; align-items:center; justify-content:center;
+            font-size:7rem;
+        }
+
+        /* right column: details */
+        .modal-right { padding:2rem 2rem 2rem; display:flex; flex-direction:column; gap:1.1rem; overflow-y:auto; }
+        .modal-cat {
+            font-size:0.72rem; text-transform:uppercase;
+            letter-spacing:0.14em; color:var(--gold); font-weight:700;
+        }
+        .modal-title {
+            font-family:'Playfair Display',serif; font-size:1.7rem;
+            color:var(--navy); line-height:1.2;
+        }
+        .modal-price { font-size:1.5rem; font-weight:700; color:var(--navy); }
+        .modal-desc { color:var(--gray); line-height:1.75; font-size:0.88rem; }
+
+        .field-label {
+            font-size:0.72rem; text-transform:uppercase;
+            letter-spacing:0.1em; font-weight:700; color:var(--navy);
+            margin-bottom:0.55rem; display:block;
+        }
+
+        /* Size options */
+        .sizes-row { display:flex; gap:0.5rem; flex-wrap:wrap; }
+        .sz-input { display:none; }
+        .sz-lbl {
+            display:flex; align-items:center; justify-content:center;
+            min-width:44px; height:44px; padding:0 0.5rem;
+            border:2px solid var(--border); border-radius:10px;
+            font-size:0.82rem; font-weight:600; cursor:pointer;
+            transition:all 0.18s; color:var(--text); white-space:nowrap;
+        }
+        .sz-input:checked + .sz-lbl { background:var(--navy); border-color:var(--navy); color:white; }
+        .sz-lbl:hover { border-color:var(--navy); }
+
+        /* Store options */
+        .stores-list { display:flex; flex-direction:column; gap:0.45rem; }
+        .st-input { display:none; }
+        .st-lbl {
+            display:flex; align-items:center; gap:0.7rem;
+            padding:0.7rem 0.9rem; border:2px solid var(--border);
+            border-radius:12px; cursor:pointer; transition:all 0.18s;
+        }
+        .st-lbl:hover { border-color:var(--navy); }
+        .st-input:checked + .st-lbl { border-color:var(--gold); background:#fffbf0; }
+        .st-dot {
+            width:9px; height:9px; border-radius:50%;
+            background:var(--border); flex-shrink:0; transition:background 0.2s;
+        }
+        .st-input:checked + .st-lbl .st-dot { background:var(--gold); }
+        .st-name { font-weight:600; font-size:0.88rem; color:var(--navy); }
+        .st-addr { font-size:0.73rem; color:var(--gray); }
+
+        /* WhatsApp button */
+        .wa-btn {
+            width:100%; padding:1rem; background:var(--whatsapp);
+            color:white; border:none; border-radius:14px;
+            font-family:'Jost',sans-serif; font-size:1rem; font-weight:700;
+            cursor:pointer; display:flex; align-items:center; justify-content:center;
+            gap:0.7rem; transition:all 0.2s; letter-spacing:0.03em;
+            text-transform:uppercase;
+        }
+        .wa-btn:hover { background:#1ebe5a; transform:translateY(-2px); box-shadow:0 8px 25px rgba(37,211,102,0.35); }
+        .wa-btn svg { width:22px; height:22px; fill:white; flex-shrink:0; }
+        .err-msg { color:#dc2626; font-size:0.78rem; display:none; margin-top:-0.5rem; }
+        .err-msg.show { display:block; }
+
+        /* ── FOOTER ── */
+        footer {
+            background:var(--navy); color:rgba(255,255,255,0.65);
+            padding:3rem 2.5rem 1.5rem; margin-top:2rem;
+        }
+        .footer-inner {
+            max-width:1400px; margin:0 auto;
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+            gap:2rem; margin-bottom:2rem;
+        }
+        footer h3 { font-family:'Playfair Display',serif; color:white; margin-bottom:0.8rem; font-size:1rem; }
+        footer h4 { color:white; margin-bottom:0.8rem; font-size:0.85rem; text-transform:uppercase; letter-spacing:0.07em; }
+        .f-links { list-style:none; }
+        .f-links li { margin-bottom:0.4rem; }
+        .f-links a { color:rgba(255,255,255,0.55); text-decoration:none; font-size:0.83rem; }
+        .f-links a:hover { color:var(--gold); }
+        .footer-bottom {
+            border-top:1px solid rgba(255,255,255,0.1);
+            padding-top:1.3rem; text-align:center;
+            font-size:0.78rem; color:rgba(255,255,255,0.35);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:768px) {
+            .modal { grid-template-columns:1fr; }
+            .modal-left { border-radius:24px 24px 0 0; min-height:260px; }
+            .modal-img-placeholder { min-height:260px; font-size:5rem; }
+            .nav-menu {
+                display:none; flex-direction:column;
+                position:absolute; top:68px; left:0; right:0;
+                background:var(--navy); padding:1rem 2rem; gap:1rem;
+            }
+            .nav-menu.show { display:flex; }
+            .hamburger { display:flex; }
+            .page-hero h1 { font-size:1.8rem; }
+        }
+        @media(max-width:480px) {
+            .main-wrap { padding:0.75rem 0.75rem 2rem; }
+            .products-grid { grid-template-columns:repeat(3, 1fr); gap:0.35rem; }
+            .card-body { padding:0.5rem 0.6rem 0.6rem; }
+            .hero-2 { padding:24px 16px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header>
+    <nav class="navbar">
+        <div class="nav-logo">
+            <img src="img/logo-1.PNG" alt="CK'S ONLINE STORE" onerror="this.style.display='none';document.querySelector('.nav-logo-text').style.display='block'">
+            <span class="nav-logo-text" style="display:none">CK'S <span>ONLINE STORE</span></span>
+        </div>
+        <div class="hamburger" onclick="document.getElementById('navMenu').classList.toggle('show')">
+            <span></span><span></span><span></span>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="stores.html">Our Stores</a></li>
+            <li><a href="products.html" class="active">Our Products</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+<!-- PAGE HERO -->
+<div class="hero-2">
+        <h1>Shop With Us</h1>
+        <p>Get in touch with Ck's online store and shop with us todaty, and find a store nearest to you</p>
+    </div>
+<!-- MAIN CONTENT -->
+<div class="main-wrap">
+    <!-- Controls row -->
+    <div class="controls">
+        <div class="search-wrap">
+            <input type="text" id="searchInput" placeholder="Search products..." oninput="filterProducts()">
+        </div>
+        <span class="products-count" id="productsCount"></span>
+    </div>
+
+    <!-- Category tabs -->
+    <div class="categories" id="catTabs"></div>
+
+    <!-- Products grid -->
+    <div class="products-grid" id="productsGrid"></div>
+</div>
+
+<!-- PRODUCT MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOnBg(event)">
+    <div class="modal" id="productModal">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <div class="modal-left" id="modalImgSection"></div>
+        <div class="modal-right" id="modalBody"></div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <div>
+            <h3>CK'S ONLINE STORE</h3>
+            <p style="font-size:.83rem">Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="f0939b839f9e9c999e9583849f8295c2c6b0979d91999cde939f9d">[email&#160;protected]</a><br>Ndola, Zambia</p>
+        </div>
+        <div>
+            <h4>Quick Links</h4>
+            <ul class="f-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>About</h4>
+            <ul class="f-links">
+                <li><a href="about.html">Who We Are</a></li>
+                <li><a href="stores.html">Our Stores</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4>Shopping</h4>
+            <ul class="f-links">
+                <li><a href="faqs.html">FAQs</a></li>
+                <li><a href="admin.html" style="color:rgba(255,255,255,0.3)">Admin</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p><strong style="color:rgba(255,255,255,.6)">CK'S ONLINE STORE</strong> &nbsp;·&nbsp; Copyright 2026 · Created by CHABUKOLALA</p>
+    </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ─── DATA ───────────────────────────────────────────────────────────────────
+
+const CATEGORIES = [
+    { id:'all',               label:'All Products' },
+    { id:'mens-clothing',     label:"Men's Clothing" },
+    { id:'womens-clothing',   label:"Women's Clothing" },
+    { id:'kids-clothing',     label:"Kids' Clothing" },
+    { id:'footwear',          label:'Footwear' },
+    { id:'accessories',       label:'Accessories' },
+];
+
+const CAT_EMOJI = {
+    'mens-clothing':'','womens-clothing':'👗','kids-clothing':'🧒',
+    'footwear':'👟','accessories':'👜'
+};
+
+const DEFAULT_STORES = [
+    { id:1, name:'Zmart Mall – Ndola',   address:'Zmart Mall, Ndola',      phone:'260979111227' },
+    { id:2, name:'Luanshya Store',       address:'Downtown shopping center, Luanshya',  phone:'260974114631' },
+    { id:3, name:'Mufulira Store',       address:'Chachacha Rd, Mufulira',      phone:'260960474925' },
+    { id:4, name:'chapasuka store - Ndola',     address:'chapasuka building, Ndola',       phone:'260976699138' },
+    { id:5, name:'Kitwe Store',         address:'Lake filling station, Kitwe',      phone:'260573922461' },
+    { id:6, name:'Watch it grow store - Ndola', address:'Watch it grow building, Ndola', phone:'260977754325' },
+];
+
+const DEMO_PRODUCTS = [
+    { id:'d1', name:'Classic Oxford Shirt', category:'mens-clothing', price:350, description:'A timeless Oxford shirt perfect for both casual and semi-formal wear. Made from premium cotton blend fabric with a comfortable regular fit.', sizes:['S','M','L','XL','XXL'], image:'', badge:'New' },
+    { id:'d2', name:'Slim Fit Chinos', category:'mens-clothing', price:480, description:'Modern slim-fit chinos in a versatile neutral tone. Crafted for all-day comfort with a smart, tailored silhouette.', sizes:['28','30','32','34','36'], image:'', badge:'' },
+    { id:'d3', name:'Floral Wrap Dress', category:'womens-clothing', price:520, description:'A vibrant floral wrap dress that flows beautifully. Lightweight fabric, adjustable tie waist, perfect for any occasion.', sizes:['XS','S','M','L','XL'], image:'', badge:'Sale' },
+    { id:'d4', name:'High-Waist Jeans', category:'womens-clothing', price:420, description:'Trendy high-waist skinny jeans with a flattering cut and superior stretch comfort.', sizes:['6','8','10','12','14'], image:'', badge:'' },
+    { id:'d5', name:'Kids Denim Jacket', category:'kids-clothing', price:280, description:'Durable and stylish denim jacket for kids. Comfortable for everyday wear with fun patch details.', sizes:['4-5Y','6-7Y','8-9Y','10-11Y'], image:'', badge:'New' },
+    { id:'d6', name:'Premium Sneakers', category:'footwear', price:750, description:'Lightweight premium sneakers with memory foam insole. Versatile design suitable for casual and active use.', sizes:['36','37','38','39','40','41','42','43'], image:'', badge:'Hot' },
+    { id:'d7', name:'Leather Loafers', category:'footwear', price:650, description:'Classic leather loafers with a polished finish. Easy slip-on design with durable rubber outsole.', sizes:['38','39','40','41','42','43','44'], image:'', badge:'' },
+    { id:'d8', name:'Leather Handbag', category:'accessories', price:380, description:'Elegant structured handbag in genuine leather. Features multiple compartments and a detachable shoulder strap.', sizes:['One Size'], image:'', badge:'' },
+];
+
+// ─── SUPABASE ────────────────────────────────────────────────────────────────
+const SUPABASE_URL = 'https://fwumbschxqjqzdgyqors.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3dW1ic2NoeHFqcXpkZ3lxb3JzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM3ODU1NDQsImV4cCI6MjA4OTM2MTU0NH0.p7UsQjVH563JVqFQ3lGnjZNpLXJRnwCVOVHpvzXMh3M';
+
+async function sbFetch(path) {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/' + path, {
+        headers: {
+            'apikey': SUPABASE_KEY,
+            'Authorization': 'Bearer ' + SUPABASE_KEY
+        }
+    });
+    const txt = await res.text();
+    return txt ? JSON.parse(txt) : [];
+}
+
+async function getProducts() {
+    try {
+        const rows = await sbFetch('products?order=created_at.desc');
+        return rows.length > 0 ? rows : DEMO_PRODUCTS;
+    } catch(e) { return DEMO_PRODUCTS; }
+}
+
+async function getStores() {
+    try {
+        const rows = await sbFetch('stores?order=id.asc');
+        return rows.length > 0 ? rows : DEFAULT_STORES;
+    } catch(e) { return DEFAULT_STORES; }
+}
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let currentCat = 'all';
+let currentProduct = null;
+
+// ─── CATEGORY TABS ───────────────────────────────────────────────────────────
+function buildCategoryTabs() {
+    const tabs = document.getElementById('catTabs');
+    tabs.innerHTML = CATEGORIES.map(c => `
+        <button class="cat-btn${c.id===currentCat?' active':''}"
+                onclick="setCategory('${c.id}')">${c.label}</button>
+    `).join('');
+}
+
+function setCategory(id) {
+    currentCat = id;
+    buildCategoryTabs();
+    renderProducts();
+}
+
+// ─── RENDER PRODUCTS ─────────────────────────────────────────────────────────
+async function filterProducts() {
+    const q = document.getElementById('searchInput').value.toLowerCase().trim();
+    const all = await getProducts();
+    return all.filter(p => {
+        const matchCat = currentCat === 'all' || p.category === currentCat;
+        const matchQ = !q || p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q);
+        return matchCat && matchQ;
+    });
+}
+
+async function renderProducts() {
+    const grid = document.getElementById('productsGrid');
+    const products = await filterProducts();
+
+    document.getElementById('productsCount').textContent =
+        products.length === 0 ? '' : `${products.length} item${products.length!==1?'s':''}`;
+
+    if (products.length === 0) {
+        grid.innerHTML = `
+            <div class="empty-state">
+                <div class="icon">🛍️</div>
+                <h3>No products found</h3>
+                <p>Try a different category or search term.</p>
+            </div>`;
+        return;
+    }
+
+    grid.innerHTML = products.map(p => {
+        const catLabel = CATEGORIES.find(c=>c.id===p.category)?.label || p.category;
+        const emoji = CAT_EMOJI[p.category] || '🏷️';
+        const imgHtml = p.image
+            ? `<img class="card-img" src="${p.image}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`+
+              `<div class="card-img-placeholder" style="display:none">${emoji}</div>`
+            : `<div class="card-img-placeholder">${emoji}</div>`;
+        const sizePips = (p.sizes||[]).slice(0,4).map(s=>`<span class="size-pip">${s}</span>`).join('');
+        return `
+        <div class="product-card" onclick="openModal('${p.id}')">
+            <div class="card-img-wrap">
+                ${imgHtml}
+                <div class="card-overlay"><span>View Details</span></div>
+                ${p.badge ? `<div class="card-badge">${p.badge}</div>` : ''}
+            </div>
+            <div class="card-body">
+                <div class="card-cat">${catLabel}</div>
+                <div class="card-name">${p.name}</div>
+                <div class="card-footer">
+                    <div class="card-price">K ${p.price.toLocaleString()}</div>
+                    <div class="card-sizes">${sizePips}${(p.sizes||[]).length>4?`<span class="size-pip">+${p.sizes.length-4}</span>`:''}</div>
+                </div>
+            </div>
+        </div>`;
+    }).join('');
+}
+
+// ─── MODAL ───────────────────────────────────────────────────────────────────
+async function openModal(id) {
+    const products = await getProducts();
+    const p = products.find(x=>x.id===id);
+    if (!p) return;
+    currentProduct = p;
+
+    const stores = await getStores();
+    const catLabel = CATEGORIES.find(c=>c.id===p.category)?.label || p.category;
+    const emoji = CAT_EMOJI[p.category] || '🏷️';
+
+    // Image section
+    const imgSection = document.getElementById('modalImgSection');
+    imgSection.innerHTML = p.image
+        ? `<img class="modal-img" src="${p.image}" alt="${p.name}" onerror="this.outerHTML='<div class=modal-img-placeholder>${emoji}</div>'">`
+        : `<div class="modal-img-placeholder">${emoji}</div>`;
+
+    // Sizes
+    const sizesHtml = (p.sizes||[]).map((s,i) => `
+        <input type="radio" name="modalSize" id="sz${i}" value="${s}" class="sz-input">
+        <label for="sz${i}" class="sz-lbl">${s}</label>
+    `).join('');
+
+    // Stores
+    const storesHtml = stores.map((s,i) => `
+        <input type="radio" name="modalStore" id="st${s.id}" value="${s.id}" class="st-input">
+        <label for="st${s.id}" class="st-lbl">
+            <div class="st-dot"></div>
+            <div>
+                <div class="st-name">${s.name}</div>
+                <div class="st-addr">${s.address}</div>
+            </div>
+        </label>
+    `).join('');
+
+    document.getElementById('modalBody').innerHTML = `
+        <div class="modal-cat">${catLabel}</div>
+        <div class="modal-title">${p.name}</div>
+        <div class="modal-price">K ${p.price.toLocaleString()}</div>
+        ${p.description ? `<div class="modal-desc">${p.description}</div>` : ''}
+
+        <div>
+            <span class="field-label">Select Your Size</span>
+            <div class="sizes-row">${sizesHtml}</div>
+        </div>
+
+        <div>
+            <span class="field-label">Select a Store</span>
+            <div class="stores-list">${storesHtml}</div>
+        </div>
+
+        <p class="err-msg" id="errMsg">⚠️ Please select both a size and a store before ordering.</p>
+
+        <button class="wa-btn" onclick="orderWhatsApp()">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.122 1.529 5.855L.057 23.886a.5.5 0 0 0 .612.612l6.031-1.472A11.953 11.953 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.895 0-3.67-.522-5.184-1.43l-.372-.219-3.853.94.96-3.746-.24-.386A9.96 9.96 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+            </svg>
+            Order on WhatsApp
+        </button>
+    `;
+
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+    currentProduct = null;
+}
+
+function closeModalOnBg(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
+
+// ─── WHATSAPP ORDER ───────────────────────────────────────────────────────────
+async function orderWhatsApp() {
+    const sizeEl  = document.querySelector('input[name="modalSize"]:checked');
+    const storeEl = document.querySelector('input[name="modalStore"]:checked');
+    const errMsg  = document.getElementById('errMsg');
+
+    if (!sizeEl || !storeEl) {
+        errMsg.classList.add('show');
+        return;
+    }
+    errMsg.classList.remove('show');
+
+    const stores = await getStores();
+    const store  = stores.find(s => s.id == storeEl.value);
+    const p      = currentProduct;
+    const catLabel = CATEGORIES.find(c=>c.id===p.category)?.label || p.category;
+
+    let imageUrl = p.waimage || '';
+    if (p.image &&!p.image.startsWith('data:')) {
+        if (p.image.startsWith('http')) {
+            imageUrl = p.image;
+        } else {
+            imageUrl = window.location.origin + '/' + p.image.replace(/^\/+/, '');
+        }
+    }
+    const msg = [
+        `Hello! I'd like to place an order 🛍️`,
+        ``,
+        `*Product:* ${p.name}`,
+        `*Category:* ${catLabel}`,
+        `*Size:* ${sizeEl.value}`,
+        `*Price:* K ${p.price.toLocaleString()}`,
+        ``,
+        `*Store:* ${store.name}`,
+        `*Address:* ${store.address}`,
+        ``,
+        p.description ? `*Description:* ${p.description.substring(0,120)}` : '',
+        ``,
+        imageUrl ? `*Product Image:* ${imageUrl}` : '',
+        ``,
+        `Please confirm availability. Thank you! 😊`
+    ].filter(l => l !== undefined && l !== '').join('\n');
+
+    const url = `https://wa.me/${store.phone}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+}
+
+// ─── INIT ───────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', async () => {
+    buildCategoryTabs();
+    await renderProducts();
+    document.getElementById('searchInput').addEventListener('input', renderProducts);
+});
+</script>
+</body>
+</html>

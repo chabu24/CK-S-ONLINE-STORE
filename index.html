@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CK'S ONLINE STORE">
+    <meta name="robots" content="index, follow">
+    <title>CK'S ONLINE STORE</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!--NAV BAR START-->
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <img src="img/logo-1.PNG" alt="CK'S ONLINE STORE Logo">
+            </div>
+
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="stores.html">Our Stores</a></li>
+                <li><a href="products.html">Our Products</a></li>
+                <li><a href="contact.html">Contact</a></li>            
+            </ul>
+        </nav>        
+    </header>
+
+    <!--HERO SECTION START-->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="animate-fade-in-up fade-in-up"> Welcome to CK'S ONLINE STORE<br>A brand for you</h1>
+            <p class="animate-fade-in-up delay-1">we are here to serve you</p>
+            <a href="products.html" class="shop-now-btn animate-fade-in-up delay-2">Shop Now</a>
+        </div>
+    </section>
+    <!--HERO SECTION END-->
+
+    <div class="container">
+        <!-- Special Offers Section -->
+        <section class="contact-section fade-in-section">
+            <h2>Special Offers</h2>
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <h3>Summer Sale</h3>
+                    <p class="discount">50% OFF</p>
+                    <p>Selected clothing items</p>
+                    <a href="products.html" class="offer-link">Shop Now →</a>
+                </div>
+
+                <div class="offer-card">
+                    <h3>Footwear Deals</h3>
+                    <p class="discount">30% OFF</p>
+                    <p>Premium shoes collection</p>
+                    <a href="products.html" class="offer-link">Shop Now →</a>
+                </div>
+
+                <div class="offer-card">
+                    <h3>New Arrivals</h3>
+                    <p class="discount">20% OFF</p>
+                    <p>Latest fashion collection</p>
+                    <a href="products.html" class="offer-link">Shop Now →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Shop With Us Section -->
+        <section class="contact-section fade-in-section">
+            <h2>Why Shop With Us</h2>
+            <div class="offices">
+                <div class="office">
+                    <h3>Quality Products</h3>
+                    <p>We offer only the best quality clothing and footwear from trusted brands</p>
+                </div>
+
+                <div class="office">
+                    <h3>Multiple Locations</h3>
+                    <p>6 stores across Zambia - Ndola, Luanshya, Mufulira, and Kitwe</p>
+                </div>
+
+                <div class="office">
+                    <h3>Affordable Prices</h3>
+                    <p>Competitive prices with regular discounts and special offers</p>
+                </div>
+
+                <div class="office">
+                    <h3>Excellent Service</h3>
+                    <p>Friendly staff ready to help you find exactly what you need</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Visit Our Stores Section -->
+        <section class="contact-section fade-in-section">
+            <h2>Visit Our Stores</h2>
+            <div class="contact-info">
+                <p><strong>Main Store:</strong> Zmart mall, Ndola, Zambia</p>
+                <p><strong>Phone:</strong> +260 979111227</p>
+                <p><strong>Email:</strong> cksonlinestore26@gmail.com</p>
+                <p><strong>Operating Hours:</strong> Monday - Saturday: 8:00 AM - 6:00 PM, Sunday: 9:00 AM - 4:00 PM</p>
+            </div>
+            <p style="margin-top: 20px;">
+                <a href="stores.html" style="color: #007bff; text-decoration: none; font-weight: bold;">Find a store near you →</a>
+            </p>
+        </section>
+    </div>
+    
+<!--FAQ's START-->
+<section class="faq-wrapper">
+    <h2 class="faq-title">Frequently Asked Questions</h2>
+
+    <div class="faq-container">
+
+        <div class="faq-item">
+            <input type="checkbox" name="faq" id="faq1">
+            <label for="faq1" class="faq-question">What is your return policy?</label>
+            <div class="faq-answer">
+                <p>Returns accepted within 30 days of purchase. Items must be unworn, unwashed, with tags attached.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <input type="checkbox" name="faq" id="faq2">
+            <label for="faq2" class="faq-question"> How do I make a return?</label>
+            <div class="faq-answer">
+                <p> Simply bring the item and your receipt to the store and our team will assist you.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <input type="checkbox" name="faq" id="faq3">
+            <label for="faq3" class="faq-question">Can I exchange instead of returning?</label>
+            <div class="faq-answer">
+                <p>Yes — bring the item in-store and we'll swap it for a different size or colour, subject to</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <input type="checkbox" name="faq" id="faq4">
+            <label for="faq4" class="faq-question">What payment methods do you accept?</label>
+            <div class="faq-answer">
+                <p>We accept cash, credit cards, and mobile money payments.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <input type="checkbox" name="faq" id="faq5">
+            <label for="faq5" class="faq-question"> How often do you get new stock?</label>
+            <div class="faq-answer">
+                <p>We restock our inventory regularly to ensure we have the latest products available.</p>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <input type="checkbox" name="faq" id="faq6">
+            <label for="faq6" class="faq-question">Do you store my personal information?</label>
+            <div class="faq-answer">
+                <p>We collect and store personal information to provide you with a better shopping experience and to communicate with you about our products and services.</p>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!--FAQ's END-->
+
+<!--FOOTER START-->
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>CK'S ONLINE STORE</h3>
+            <div class="contact-info">
+                <p>Email: infocksonlinestore26@gmail.com</p>
+                <p>Ndola, Zambia</p>
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul class="footer-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="contact.html">Contact</a></li> 
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h4>About Us</h4>
+            <ul class="footer-links">
+                <li><a href="about.html">Who We Are</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-section">
+            <h4>Stores</h4>
+            <ul class="footer-links">
+                <li><a href="stores.html">Our Stores</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h4>Shopping Information</h4>
+            <ul class="footer-links">
+                <li><a href="faqs.html">Frequently Asked Questions</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h4>Terms & Conditions</h4>
+            <ul class="footer-links">
+                <li><a href="terms.html">Travel Terms & Conditions</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <div class="footer-bottom-content">
+            <img src="img/logo-1.PNG" alt="CK'S ONLINE STORE Logo" class="footer-logo">
+            <p><strong>CK'S ONLINE STORE</strong></p>
+            <P>
+                copyright 2026 created by CHABUKOLALA | All rights reserved
+            </P>
+        </div>
+    </div>
+</footer>
+<!--FOOTER END-->
+    
+</body>
+
+<script>
+    function toggleMenu() {
+        document.getElementById("nav-menu").classList.toggle("show");
+    }        
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const faders = document.querySelectorAll('.fade-in, .fade-in-section');
+
+    const appearOptions = {
+        threshold: 0.2
+    };
+
+    const appearOnScroll = new IntersectionObserver(function (entries, observer) {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('show');
+            observer.unobserve(entry.target);
+        });
+    }, appearOptions);
+
+    faders.forEach(el => appearOnScroll.observe(el));
+});
+</script>
+</html>

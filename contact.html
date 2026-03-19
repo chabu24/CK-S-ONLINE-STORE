@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Andrich Coach Bus Services — find offices, phone numbers, email, and maps to our locations.">
+    <title>Contact - Andrich Coach Bus Services</title>
+    <link rel="stylesheet" href="css/style.css"> 
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-logo">
+                <img src="img/logo-1.PNG" alt="Andrich Coach Logo">
+            </div>
+
+            <div class="hamburger" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="stores.html">Our Stores</a></li>
+                <li><a href="products.html">Our products</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="hero-2">
+        <h1>Contact Us</h1>
+        <p>Get in touch with Ck's online store and shop with us todaty.</p>
+    </div>
+
+    <div class="container">
+        <section class="contact-section fade-in-section">
+            <h2>Main Store</h2>
+            <div class="contact-info">
+                <p><strong>Main Store:</strong>Zmart mall, Ndola, Zambia</p>
+                <p><strong>Phone:</strong> +260 979111227</p>
+                <p><strong>Email:</strong> cksonlinestore26@gmail.com</p>
+                <p><strong>Operating Hours:</strong> Monday - Saturday: 8:00 AM - 6:00 PM, Sunday: 9:00 AM - 4:00 PM</p>
+            </div>
+        </section>
+
+        <section class="contact-section fade-in-section">
+            <div class="offices">
+                <div class="office">
+                    <h3>Watch it grow store</h3>
+                    <p>Watch  it grow building, Ndola</p>
+                    <p>Phone: +260 977754325</p>
+                </div>
+                <div class="office">
+                    <h3>Chapusuka store</h3>
+                    <p>Chapasuka building, Ndola</p>
+                    <p>Phone: +260 976699138</p>
+                </div>
+                <div class="office">
+                    <h3>Luanshya store</h3>
+                    <p>Downtown shopping center, Luanshya</p>
+                    <p>Phone: +260 974114631</p>
+                </div>
+                <div class="office">
+                    <h3>Mufilira store</h3>
+                    <p>Chachacha Rd, Mufulira</p>
+                    <p>Phone: +260 960474925</p>
+                </div>
+                <div class="office">
+                    <h3>Kitwe store</h3>
+                    <p>Lake filing station opposite MTN main branch, Kitwe</p>
+                    <p>Phone: +260 573922461</p>
+                </div>
+        </section>
+
+            <h2>Send Us a Message</h2>
+            <form id="contact-form" class="contact-form">
+                <div class="form-group">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="subject">Subject:</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+            <p id="contact-success" class="contact-success" role="status" aria-live="polite" style="display:none;margin-top:10px;color:green;"></p>
+        </section> 
+    </div>
+
+    <script>
+        function toggleMenu() {
+            document.getElementById("nav-menu").classList.toggle("show");
+        }
+    </script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const faders = document.querySelectorAll('.fade-in-section');
+        const appearOptions = {
+            threshold: 0.2
+        };
+        const appearOnScroll = new IntersectionObserver(function (entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('show');
+                observer.unobserve(entry.target);
+            });
+        }, appearOptions);
+        faders.forEach(el => appearOnScroll.observe(el));
+    });
+    </script>
+</body>
+</html> 
